@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    <title>Document</title>
+    <style type="text/css">
+        html,body,div,p,input,ul,li,span,h1{
+            padding: 0;
+            margin: 0;
+        }
+        ul,li{list-style: none;}
+        i,b{font-style: normal;}
+        input{
+            border: none;
+            background: transparent;
+            outline: none;
+            cursor: pointer;
+        }
+        #follwers{
+            width: 400px;
+            height: 380px;
+            border: 1px solid #000;
+            margin: 10px;
+            padding: 10px;
+        }
+        #follwers h1{
+            color: #cfcfcf;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        #follwers>input{
+            font-size: 20px;
+            color: #cfcfcf;
+            margin-left: 20px;
+            vertical-align: middle; 
+        }
+        #tpl_fol{
+            padding: 20px;
+        }
+        #tpl_fol>li{
+            height: 50px;
+            border-bottom: 1px solid #ccc;
+            position: relative;
+        }
+        .name{
+            margin-bottom: 10px;
+            display: inline-block;
+            font-size: 20px;
+        }
+        .des{
+            color: #666;
+            margin-left: 20px;
+        }
+        #tpl_fol>li>input{
+            position: absolute;
+            top: 15px;
+            right: 50px;
+        }
+        #tpl_fol>li>i{
+            position: absolute;
+            top: 15px;
+            right: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id = 'follwers'>
+        <h1>Who To Follow</h1>
+        <input id = 'rf' type="button" name="refresh" value="refresh">
+        <ul id = 'tpl_fol'>
+            <li  class="iterm-{{i}}  iterm">
+                <span class = 'name'>{{name}}</span>
+                <p class = "des">{{des}}</p>
+                <input id = 'btn' type="button" name="Follow" value="Follow">
+                <i class = 'del' data-i='{{i}}'>×</i>
+            </li>
+        </ul>    
+    </div>
+    
+    <script src="follower.js"></script>
+</body>
+</html>
