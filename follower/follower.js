@@ -33,87 +33,104 @@ var user = [
     },
     {
         name : 'i',
-        description : 'HHHH'
+        description : 'IIII'
     },
     {
-        name : 'g',
-        description : 'GGGG'
+        name : 'j',
+        description : 'JJJJ'
     }
-],
-    g = function(id){
-        if(id.substr(0,1) == '.'){
-            return document.getElementsByClassName(id.substr(1));
-        }else{
-            return document.getElementById(id);
+];
+fowller = function(index,bol,ctx){
+    this.index = index;
+    this.like = bol;
+    this.ctx = ctx;
+}
+getTpl = function(selector){
+        var str = document.querySelector(selector).innerHTML;
+        return {
+            liCtx : str,
+            li : '<li  class="iterm-{{i}}  iterm">' + str + '</li>'
         }
-    },
-    getOne= function(len,arr){  
-        var a = Math.floor((len-1)*Math.random());
-        if(arr){
-            for(var i in arr){
-                if(a == arr[i])
-                    return getOne(len,arr)
-            }
-            return a;
-        }else{
-            return a;
-        }     
-    },
-    getThree = function(){
-        var result = [];
-        for(var i =0;i<3;i++){
-            result.push(getOne(user.length,result))
+},
+createOne = function(len,arr){  
+    var a = Math.floor((len)*Math.random());
+    if(arr){
+        for(var i = 0;i < arr.length;i++){
+           if(a == arr[i]){                
+                return createOne(len,arr);
+            } 
         }
-        return result;
-    },
-    addFowlers = function(tpl){
-        var tpl = g('tpl_fol').innerHTML.replace(/^\s*/,'').replace(/\s*$/,'');
-        var out_tpl = [];
-        var result = getThree();
-        for(i in result){
-            var _html = tpl.replace(/{{name}}/g,user[result[i]].name)
-                            .replace(/{{des}}/g,user[result[i]].description)
-                            .replace(/{{i}}/g,i);
-            out_tpl.push(_html);
-        }
-        g('tpl_fol').innerHTML = out_tpl.join('');
-        return result;
-    },
-    addOneFowler = function(num,now,_now,tpl_li){
-        var q = getOne(user.length,_now);
-        now[num] = q;
-        var out_li = tpl_li.replace(/{{name}}/g,user[q].name)
-                            .replace(/{{des}}/g,user[q].description)
-                            .replace(/{{i}}/g,num);
-        var li = document.createElement('li');
+    }
+    return a;   
+},
+createMore = function(total){ 
+    var result = [];
+    for(var i =0;i<total;i++){
+        result.push(createOne(user.length,result))
+    }
+    return result;
+},
+replaceTpl = function(tpl,fowllers,n){
+    var out_tpl = [] , _html;
+    fowllers.forEach(function(iterm,index){
+        _html = tpl.replace(/{{name}}/g,iterm.ctx.name)
+                    .replace(/{{des}}/g,iterm.ctx.description)
+                    .replace(/{{i}}/g,n||index);
+        out_tpl.push(_html); 
+    })
+    return out_tpl.join('');
+
+},
+addFowlers = function(total){    
+    var result = createMore(total);
+    var fowllers = [];
+    result.forEach(function(iterm,index){
+        fowllers.push(new fowller(iterm,true,user[iterm]))
+    });
+    ul.innerHTML = replaceTpl(tpl,fowllers);
+    return fowllers;
+},
+addOneFowler = function(num,arr){
+    var filter = [];
+    arr.forEach(function(iterm,index,arr){
+        filter.push(iterm.index);
+    }) 
+    var li = document.createElement('li');
+    if(filter.length < user.length){       
+        var q = createOne(user.length,filter);
+        arr.push(new fowller(q,true,user[q])); 
         li.className = 'iterm-'+num+' iterm';
-        li.innerHTML = out_li;
-        return li;
+        li.innerHTML = replaceTpl(tpl_li,[arr[arr.length-1]],num);       
+    }else{
+        li.className = 'showNo';
+        li.innerHTML = '没有更多啦';
+        end = true;
+        
+    }
+    return li;   
+},
+delFowler = function(arr){
+   return function(){
+        if(event.target.tagName.toLowerCase() == 'i'){
+            var num = event.target.getAttribute("data-i");
+            arr[num].like =false;
+            ul.removeChild(document.querySelectorAll('.iterm-'+num)[0]);
+            if(!end){
+                var new_li = addOneFowler(num,arr);
+                ul.appendChild(new_li);
+            }            
 
-    },
-    delFowler = function(now,tpl_li){
-       return function(){
-        var num = this.getAttribute("data-i");
-        var _now =[];
-        for(var i=0;i<now.length;i++){_now[i] = now[i];}
-
-        g('tpl_fol').removeChild(g('.iterm-'+num)[0]);
-        delete now[num];
-        var new_li = addOneFowler(num,now,_now,tpl_li);
-        var close = new_li.getElementsByClassName('del')[0];
-        close.addEventListener('click',delFowler(now,tpl_li),false);
-        g('tpl_fol').appendChild(new_li);
-       }
-    };
-    (function(){
-        var tpl = g('tpl_fol').innerHTML.replace(/^\s*/,'').replace(/\s*$/,'');
-        var tpl_li = g('.iterm')[0].innerHTML.replace(/^\s*/,'').replace(/\s*$/,'');
-        var now = addFowlers(tpl);
-        var del = g('.del');
-        for(var i = 0;i<3;i++){
-            del[i].addEventListener('click',delFowler(now,tpl_li),false);
         }
+   }
+},
+ul = document.querySelector('#follwers'),
+tpl = getTpl('#tpl_content').li.replace(/^\s*/,'').replace(/\s*$/,''),
+tpl_li = getTpl('#tpl_content').liCtx.replace(/^\s*/,'').replace(/\s*$/,''),
+end = false;
 
+    (function(){
+        var firstFowllers = addFowlers(3);
+        ul.addEventListener('click',delFowler(firstFowllers),false);
     })()
 
 
