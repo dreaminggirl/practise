@@ -135,7 +135,7 @@ refresher = function(){
     var filter = followersToindex(fowllers);
     var n = (user.length-filter.length)/3>1 ? 3 : (user.length-filter.length)%3;
     var newArr = [];
-    console.log(n);
+    
     for(var i =0; i<n;i++){
             var q = createOne(user.length,filter);
             fowllers.push(new fowller(q,true,user[q])); 
@@ -143,9 +143,14 @@ refresher = function(){
             newArr.push(fowllers[fowllers.length-1]);
        
     }
-    // if(!n){
+    if(n){
         ul.innerHTML = replaceTpl(tpl,newArr);
-    // }
+    }else{
+        if(!end){
+            ul.innerHTML = '<li class="showNo">没有更多啦</li>';
+            end =true;
+        }      
+    }
     
     
 
