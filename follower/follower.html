@@ -18,7 +18,7 @@
             cursor: pointer;
         }
         #box{
-            width: 400px;
+            width: 350px;
             height: 380px;
             border: 1px solid #000;
             margin: 10px;
@@ -31,7 +31,7 @@
         }
         #box>input{
             font-size: 20px;
-            color: #cfcfcf;
+            color: lightblue;
             margin-left: 20px;
             vertical-align: middle; 
         }
@@ -39,23 +39,51 @@
             padding: 20px;
         }
         #follwers>li{
-            height: 50px;
-            border-bottom: 1px solid #ccc;
+            height: 70px;
             position: relative;
+            padding :10px;
         }
         .name{
             margin-bottom: 10px;
-            display: inline-block;
-            font-size: 20px;
         }
-        .des{
+        #follwers img{
+            border-radius: 10px;
+            position: absolute;
+            left: 10px;
+        }
+        #follwers .name{
+            position: absolute;
+            left : 70px;
+            top: 13px;
+            font-size: 18px;
+        }
+        #follwers .des{
+            position: absolute;
+            left: 70px;
+            top: 32px;
+            font-size: 18px;
             color: #666;
-            margin-left: 20px;
+            width: 200px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow : ellipsis; 
+
         }
         #follwers>li>input{
             position: absolute;
-            top: 15px;
-            right: 50px;
+            top: 56px;
+            left: 80px;
+            background: white;
+            text-align: right;
+            font-weight: bolder;
+            padding-right: 10px;
+            width: 80px;
+            height: 25px;
+            line-height: 25px;
+            border-radius: 5px;
+            border : 1px solid #ccc;
+            background : url(image/follow.jpg) no-repeat;
+            background-size: contain; 
         }
         #follwers>li>i{
             position: absolute;
@@ -65,7 +93,6 @@
         }
         #follwers .showNo{
             text-align: center;
-            border-bottom: none;
             line-height: 50px;
         }
     </style>
@@ -78,6 +105,7 @@
         </ul>    
     </div>
     <script type="text/html" id = 'tpl_content'>
+        <img src="image/{{name}}.png" alt="">
         <span class = 'name'>{{name}}</span>
         <p class = "des">{{des}}</p>
         <input id = 'btn' type="button" name="Follow" value="Follow">
