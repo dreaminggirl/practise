@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <link rel="stylesheet" href="">
+    <style type="text/css" media="screen">
+    *{padding: 0;margin:0;}
+        .danci{
+            width: 500px;
+            height: 500px;
+            background: pink;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            overflow-x: scroll;
+            box-sizing: border-box;
+            
+        }
+        #list{
+            width: 500px;
+            text-align: center;
+            transition: all 1s ease;
+        }
+        p{
+            height: 30px;
+            line-height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <audio autobuffer autoloop loop controls>
+        <source src="http://wayou.github.io/selected/content/songs/tai_zao.mp3" type="audio/mpeg">
+    </audio>
+    <div class="danci" id = 'danci'>
+        <div id = 'list'>
+            
+        </div>
+
+    </div>
+    <script src = 'audio.js' ></script>
+</body>
+</html>
