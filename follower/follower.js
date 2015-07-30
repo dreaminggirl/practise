@@ -90,7 +90,6 @@ addFowlers = function(total){
     result.forEach(function(iterm,index){
         fowllers.push(new fowller(iterm,true,user[iterm]))
     });
-    console.log(fowllers,'first');
     ul.innerHTML = replaceTpl(tpl,fowllers);
     return fowllers;
 },

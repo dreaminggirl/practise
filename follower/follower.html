@@ -27,13 +27,13 @@
         #box h1{
             color: #cfcfcf;
             display: inline-block;
-            vertical-align: middle;
+            vertical-align: top;
         }
         #box>input{
             font-size: 20px;
             color: lightblue;
             margin-left: 20px;
-            vertical-align: middle; 
+            vertical-align: top; 
         }
         #follwers{
             padding: 20px;
@@ -42,26 +42,24 @@
             height: 70px;
             position: relative;
             padding :10px;
-        }
-        .name{
-            margin-bottom: 10px;
-        }
+            overflow: hidden;
+        } 
+        
         #follwers img{
             border-radius: 10px;
-            position: absolute;
-            left: 10px;
+            vertical-align: middle;
         }
-        #follwers .name{
-            position: absolute;
-            left : 70px;
-            top: 13px;
+        #follwers .middle{
+            display: inline-block;
+            vertical-align: middle;
             font-size: 18px;
+            margin-left: 10px;
         }
-        #follwers .des{
-            position: absolute;
-            left: 70px;
-            top: 32px;
-            font-size: 18px;
+        #follwers .del{
+            cursor: pointer;
+        }
+        .middle .des{
+            
             color: #666;
             width: 200px;
             white-space: nowrap;
@@ -69,10 +67,8 @@
             text-overflow : ellipsis; 
 
         }
-        #follwers>li>input{
-            position: absolute;
-            top: 56px;
-            left: 80px;
+         .middle input{
+
             background: white;
             text-align: right;
             font-weight: bolder;
@@ -84,13 +80,9 @@
             border : 1px solid #ccc;
             background : url(image/follow.jpg) no-repeat;
             background-size: contain; 
+            margin-left: 10px;
         }
-        #follwers>li>i{
-            position: absolute;
-            top: 15px;
-            right: 0;
-            cursor: pointer;
-        }
+       
         #follwers .showNo{
             text-align: center;
             line-height: 50px;
@@ -105,12 +97,20 @@
         </ul>    
     </div>
     <script type="text/html" id = 'tpl_content'>
-        <img src="image/{{name}}.png" alt="">
-        <span class = 'name'>{{name}}</span>
-        <p class = "des">{{des}}</p>
-        <input id = 'btn' type="button" name="Follow" value="Follow">
+        <img src = "image/{{name}}.png" alt="">
+        <div class = 'middle'>
+            <span class = 'name'>{{name}}</span>
+            <p class = "des">{{des}}</p>
+            <input id = 'btn' type="button" name="Follow" value="Follow"> 
+        </div>        
         <i class = 'del' data-i='{{i}}'>×</i>
     </script>
     <script src="follower.js"></script>
 </body>
 </html>
+
+
+
+
+
+
