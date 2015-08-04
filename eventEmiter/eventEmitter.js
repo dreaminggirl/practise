@@ -12,7 +12,7 @@ var isNone = function(obj){
 //hander.one hander.two
 var namespace = function(eventName){
     var obj = {};
-    if(eventName.indexOf('.')){
+    if(eventName.indexOf('.')!= -1){
 
         obj.main = eventName.split('.')[0];
         obj.fenzhi = [eventName.split('.')[1]];
@@ -33,7 +33,8 @@ eventEmitter.prototype.on = function(eventName,fn){
         }
     }else if(typeof _eventName == 'object'){
         if(!this._events[_eventName.main]){
-            this._events[_eventName.main][_eventName.fenzhi] = fn;
+            this._events[_eventName.main] = {};
+            this._events[_eventName.main][_eventName.fenzhi] = fn
         }else{
             if(!this._events[_eventName.main][_eventName.fenzhi]){
                 this._events[_eventName.main][_eventName.fenzhi] = fn;
@@ -51,20 +52,20 @@ eventEmitter.prototype.off = function(eventName,fn){
     var _eventName = namespace(eventName);
     if(typeof _eventName == 'string'){
         var cbks = this._events[eventName];
-        if(!cbks || isNone(cbks)){
+        if(!cbks){
             this.error();
-        }else if(cbks){
+        }else if(cbks instanceof Array || typeof cbks == 'function'){
             if(typeof cbks == 'function'){
-                delete cbks;
-            }else if(cbks instanceof Array){
+                delete this._events[eventName];
+            }else{
                 var posi = cbks.indexOf(fn);
                 cbks.splice(posi,1);
             }
-        }else if(!isNone(cbks)){
+        }else if(typeof cbks == 'object' && !isNone(cbks)){
             for(var fenzhi in cbks){
-                delete cbks[fenhi];
+                delete this._events[eventName][fenzhi];
             }
-            delete cbks;
+            delete this._events[eventName];
         }
 
     }else if(typeof _eventName == 'object'){
@@ -72,7 +73,7 @@ eventEmitter.prototype.off = function(eventName,fn){
         if(!cbks){
             this.error();
         }else if(typeof cbks == 'function'){
-            delete cbks;
+            delete this._events[_eventName.main][_eventName.fenzhi];
         }else if(cbks instanceof Array){
             var posi = cbks.indexOf(fn);
             cbks.splice(posi,1);
@@ -80,35 +81,40 @@ eventEmitter.prototype.off = function(eventName,fn){
     }
 }
 eventEmitter.prototype.emit = function(eventName){
-    // var _eventName = namespace(eventName);
-    // if(typeof _eventName == 'string'){
-        
-    // }else if(typeof _eventName == 'object'){
-        
-    // }    
-
-
-
-
-
-    var cbks = this._events[eventName];
-    if(!cbks){
-        this.error();
-    }else if(typeof cbks == 'function'){
-        cbks();
-    }else if(cbks instanceof Array){
-        for(var i = 0;i<cbks.length;i++){
-            cbks[i]();
+    var _eventName = namespace(eventName);
+    if(typeof _eventName == 'string'){
+        var cbks = this._events[eventName];
+        if(!cbks){
+            this.error();
+        }else {
+            if(typeof cbks == 'function') {
+               cbks(); 
+            }
+            else if(cbks instanceof Array){
+                for(var i = 0;i<cbks.length;i++){
+                    cbks[i]();
+                }
+            }else if(!isNone(cbks)){
+                for(var fenzhi in cbks){
+                    cbks[fenzhi]();
+                }
+            }
         }
     }
+    else if(typeof _eventName == 'object'){
+        var cbks = this._events[_eventName.main][_eventName.fenzhi];
+        if(!cbks){
+            this.error();
+        }else if(typeof cbks == 'function'){
+            cbks();
+        }else if(cbks instanceof Array){
+            for(var i = 0;i<cbks.length;i++){
+                cbks[i]();
+            }
+        }       
+    }    
+
 }
-
-
-
-
-
-
-
 eventEmitter.prototype.once = function(eventName,fn){
     var that = this;
     function linshi(){
