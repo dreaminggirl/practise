@@ -17,7 +17,7 @@
     <p id = 'test'>ffffffffff</p>
     <script src = 'eventEmitter.js' type="text/javascript" charset="utf-8" ></script>
     <script type="text/javascript">
-        var events = new eventEmitter();
+        var events = new EventEmitter();
         function fn1(){
             console.log(1);
         }
@@ -25,9 +25,11 @@
             console.log(2);
         }
         events.on('handler.one',fn1)
-        events.once('handler.two',fn2)
-        events.off('handler.one');
-        events.emit('handler.one');
+        events.on('handler',fn1)
+        events.on('handler',fn2)
+        events.on('handler.two',fn2)
+        // events.off('handler.one');
+        // events.emit('handler.one');
     </script>
 </body>
 </html>

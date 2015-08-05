@@ -1,53 +1,60 @@
-var eventEmitter = function(){
+var EventEmitter = function(){
     this._events = {};
 };
 var isNone = function(obj){
-    var hasAttr = true;
     for(var i in obj){
-        hasAttr = false;
-        break;
+        return false;
     }
-    return hasAttr;
+    return true;
 }
-//hander.one hander.two
 var namespace = function(eventName){
-    var obj = {};
     if(eventName.indexOf('.')!= -1){
-        obj.main = eventName.split('.')[0];
-        obj.branch = [eventName.split('.')[1]];
-        return obj;
+        return {
+            main : eventName.split('.')[0],
+            branch : eventName.split('.')[1]
+        };
     }else{
-        return eventName;
+        return {
+            main : eventName,
+            branch : ''
+        };
     }
 }
-eventEmitter.prototype.on = function(eventName,fn){
-    var _eventName = namespace(eventName);
-    if(typeof _eventName == 'string'){
-        if(!this._events[eventName]){
-            this._events[eventName] = fn;
-        }else if( typeof this._events[eventName]  == 'function'){
-            this._events[eventName]  = [this._events[eventName] ,fn];
-        }else if(this._events[eventName]  instanceof Array){
-            this._events[eventName] .push(fn);
+EventEmitter.prototype.on = function(eventName,fn){
+    var main = namespace(eventName).main;
+    var branch = namespace(eventName).branch;
+    this._events[main] ? '' : this._events[main] = {};
+    var _main = this._events[main];
+    if(_main && _main[branch]){
+        _main[branch].push(fn)
+    }else{
+        if(!_main){
+            _main = {};
+            _main[''] = [];
+            _main[branch] = [fn]
+        }else if(!_main[branch]){
+            _main[branch] = [fn]
         }
-    }else if(typeof _eventName == 'object'){
-        if(!this._events[_eventName.main]){
-            this._events[_eventName.main] = {};
-            this._events[_eventName.main][_eventName.branch] = fn
-        }else{
-            if(!this._events[_eventName.main][_eventName.branch]){
-                this._events[_eventName.main][_eventName.branch] = fn;
-            }else{
-                if(typeof this._events[_eventName.main][_eventName.branch] == 'function')
-                    this._events[eventName]  = [this._events[eventName] ,fn];
-                else if(this._events[_eventName.main][_eventName.branch] instanceof Array){
-                    this._events[_eventName.main][_eventName.branch].push(fn)
-                }
-            }
-        } 
-    }  
+    } 
 }
-eventEmitter.prototype.off = function(eventName,fn){
+EventEmitter.prototype.off = function(eventName,fn){
+    var main = namespace(eventName).main;
+    var branch = namespace(eventName).branch;
+    var _main = this._events[main];
+    if(!_main ) return;
+    if(!branch.length){
+        //删除全部
+        if(_main['']){
+
+        }else if(){
+            
+        }
+
+    }else{
+        var posi = _main[branch].indexOf(fn);
+            _main[branch].splice(posi,1);
+    }
+
     var _eventName = namespace(eventName);
     if(typeof _eventName == 'string'){
         var cbks = this._events[eventName];
@@ -77,7 +84,7 @@ eventEmitter.prototype.off = function(eventName,fn){
         }
     }
 }
-eventEmitter.prototype.emit = function(eventName){
+EventEmitter.prototype.emit = function(eventName){
     var _eventName = namespace(eventName);
     if(typeof _eventName == 'string'){
         var cbks = this._events[eventName];
@@ -108,11 +115,11 @@ eventEmitter.prototype.emit = function(eventName){
     }    
 
 }
-eventEmitter.prototype.once = function(eventName,fn){
+EventEmitter.prototype.once = function(eventName,fn){
     var that = this;
-    function linshi(){
+    function temporary(){
         that.off(eventName,linshi);
         fn();
     }
-    this.on(eventName,linshi);
+    this.on(eventName,temporary);
 }
