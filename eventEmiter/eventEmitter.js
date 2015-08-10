@@ -8,39 +8,30 @@ var isNone = function(obj){
     return true;
 }
 var namespace = function(eventName){
-    if(eventName.indexOf('.')!= -1){
-        return {
-            main : eventName.split('.')[0],
-            branch : eventName.split('.')[1]
-        };
-    }else{
-        return {
-            main : eventName,
-            branch : ''
-        };
+    var _eventName = eventName.split('.');
+    return {
+        main : _eventName[0],
+        branch : _eventName[1] || '' 
     }
 }
 EventEmitter.prototype.on = function(eventName,fn){
-    var main = namespace(eventName).main;
-    var branch = namespace(eventName).branch;
-    this._events[main] ? '' : this._events[main] = {};
+    var _eventName = namespace(eventName);
+    var main = _eventName.main;
+    var branch = _eventName.branch;
+    !this._events[main] && (this._events[main] = {});
     var _main = this._events[main];
     if(_main && _main[branch]){
         _main[branch].push(fn)
     }else{
-        if(!_main){
-            _main = {};
-            _main[''] = [];
-            _main[branch] = [fn]
-        }else if(!_main[branch]){
-            _main[branch] = [fn]
-        }
+        _main[branch] = [fn]
     } 
     return this;
+
 }
 EventEmitter.prototype.off = function(eventName,fn){
-    var main = namespace(eventName).main;
-    var branch = namespace(eventName).branch;
+    var _eventName = namespace(eventName);
+    var main = _eventName.main;
+    var branch = _eventName.branch;
     var _main = this._events[main];
     if(!_main ) return;
     if(fn){
@@ -51,10 +42,12 @@ EventEmitter.prototype.off = function(eventName,fn){
     return this;
 }
 EventEmitter.prototype.emit = function(eventName){
-    var main = namespace(eventName).main;
-    var branch = namespace(eventName).branch;
+    var _eventName = namespace(eventName);
+    var main = _eventName.main;
+    var branch = _eventName.branch;
     var _main = this._events[main];
     if(!_main ) return;
+    if(!_main[branch]) return;
     if(!branch){
         for(var name in _main){
             _main[name].forEach(function(iterm,index,arr){iterm();})          

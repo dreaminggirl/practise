@@ -24,13 +24,20 @@
         function fn2(){
             console.log(2);
         }
+        function fn3(){
+            console.log(3);
+        }
+  
         events.on('handler.one',fn1)
         events.on('handler.one',fn2)
-        events.on('handler',fn1)
+
+        events.on('handler',fn3)
         events.on('handler',fn2)
         events.on('handler.two',fn2)
-        // events.off('handler.one',fn1);
-        events.emit('handler.two');
+
+        // events.off('handler',fn1);
+
+        events.emit('handler');
     </script>
 </body>
 </html>
