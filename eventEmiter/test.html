@@ -25,11 +25,12 @@
             console.log(2);
         }
         events.on('handler.one',fn1)
+        events.on('handler.one',fn2)
         events.on('handler',fn1)
         events.on('handler',fn2)
         events.on('handler.two',fn2)
-        // events.off('handler.one');
-        // events.emit('handler.one');
+        // events.off('handler.one',fn1);
+        events.emit('handler.two');
     </script>
 </body>
 </html>
