@@ -66,7 +66,7 @@ EventEmitter.prototype.emit = function(eventName){
 EventEmitter.prototype.once = function(eventName,fn){
     var that = this;
     function temporary(){
-        that.off(eventName,linshi);
+        that.off(eventName,temporary);
         fn();
     }
     this.on(eventName,temporary);
