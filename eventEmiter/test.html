@@ -15,29 +15,35 @@
 </head>
 <body>
     <p id = 'test'>ffffffffff</p>
-    <script src = 'eventEmitter.js' type="text/javascript" charset="utf-8" ></script>
+    <script src = 'eventEmitter_new.js' type="text/javascript" charset="utf-8" ></script>
     <script type="text/javascript">
         var events = new EventEmitter();
         function fn1(){
             console.log(1);
+           
         }
         function fn2(){
             console.log(2);
+            // events.stopBrother = true;
+            events.stopPropagation = true;
         }
         function fn3(){
             console.log(3);
+             // events.stopPropagation = true;
         }
-  
-        events.on('handler.one',fn1)
-        events.on('handler.one',fn2)
+    events.on('handler.one.two.three',fn3)
+        
+        
 
-        events.on('handler',fn3)
-        events.on('handler',fn2)
-        events.on('handler.two',fn2)
+        events.on('handler',fn1)
+        events.on('handler.one',fn2);
+        events.on('handler.one',fn3);
+        events.on('handler.one.two',fn3)
+        events.once('handler.two',fn2)
 
-        // events.off('handler',fn1);
+        events.off('handler.one.two',fn3);
 
-        events.emit('handler');
+        events.emit('handler.two');
     </script>
 </body>
 </html>

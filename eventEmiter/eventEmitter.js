@@ -1,3 +1,8 @@
+/**
+ * 不支持冒泡
+ * 支持二级命名空间
+ * 不支持停止事件的回调函数
+ */
 var EventEmitter = function(){
     this._events = {};
 };
