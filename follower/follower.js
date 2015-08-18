@@ -1,3 +1,7 @@
+/**
+ * 增加删除 刷新 内容为空
+ */
+
 var user = [
     {
         name : 'Barack Obama',
@@ -53,10 +57,6 @@ getTpl = function(selector){
         }
 },
 createOne = function(len,arr){  
-    // var values = user.filter(function(iterm,index,array){
-    //     return !(index in arr)
-    // });
-    // console.log(values);
     var a = Math.floor((len)*Math.random());
     if(arr){
         for(var i = 0;i < arr.length;i++){
@@ -83,7 +83,6 @@ replaceTpl = function(tpl,fowllers,n){
         out_tpl.push(_html); 
     })
     return out_tpl.join('');
-
 },
 addFowlers = function(total){    
     var result = createMore(total);
@@ -118,7 +117,8 @@ addOneFowler = function(num){
 },
 delFowler = function(){
    return function(){
-        if(event.target.tagName.toLowerCase() == 'i'){
+
+        if(event.target.tagName.toLowerCase() == 'i' ){
             var num = event.target.getAttribute("data-i");
             fowllers[num].like =false;
             ul.removeChild(document.querySelectorAll('.iterm-'+num)[0]);

@@ -14,36 +14,38 @@
     </style>
 </head>
 <body>
-    <p id = 'test'>ffffffffff</p>
-    <script src = 'eventEmitter_new.js' type="text/javascript" charset="utf-8" ></script>
+    <p id="test">ffffffffff</p>
+    <script src="eventEmitter_new.js"></script>
     <script type="text/javascript">
         var events = new EventEmitter();
         function fn1(){
             console.log(1);
            
         }
-        function fn2(){
+        function fn2(e){
             console.log(2);
             // events.stopBrother = true;
-            events.stopPropagation = true;
+            // events.stopPropagation = true;
+            // console.log(e);
+            e.stopPropagation();
         }
-        function fn3(){
+        function fn3(e){
             console.log(3);
              // events.stopPropagation = true;
         }
-    events.on('handler.one.two.three',fn3)
-        
-        
-
+        function test (e){
+            console.log(e);
+        }
+        document.getElementById('test').onclick = test;
         events.on('handler',fn1)
         events.on('handler.one',fn2);
         events.on('handler.one',fn3);
         events.on('handler.one.two',fn3)
-        events.once('handler.two',fn2)
+        // events.once('handler.two',fn2)
 
-        events.off('handler.one.two',fn3);
+        // events.off('handler.one.two');
 
-        events.emit('handler.two');
+        events.emit('handler.one');
     </script>
 </body>
 </html>

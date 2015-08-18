@@ -37,6 +37,7 @@
         }
         #follwers{
             padding: 20px;
+
         }
         #follwers>li{
             height: 70px;
@@ -54,6 +55,7 @@
             vertical-align: middle;
             font-size: 18px;
             margin-left: 10px;
+            background-color: #fff;
         }
         #follwers .del{
             cursor: pointer;
@@ -78,15 +80,19 @@
             line-height: 25px;
             border-radius: 5px;
             border : 1px solid #ccc;
-            background : url(image/follow.jpg) no-repeat;
+            background : #fff url(image/follow.jpg) no-repeat;
             background-size: contain; 
             margin-left: 10px;
         }
-       
         #follwers .showNo{
             text-align: center;
             line-height: 50px;
         }
+
+       #box i{
+            user-select:none;
+            -webkit-user-select: none;
+         }
     </style>
 </head>
 <body>
@@ -97,15 +103,23 @@
         </ul>    
     </div>
     <script type="text/html" id = 'tpl_content'>
-        <img src = "image/{{name}}.png" alt="">
+        <img src = "image/{{name}}.png" alt="" >
         <div class = 'middle'>
             <span class = 'name'>{{name}}</span>
             <p class = "des">{{des}}</p>
             <input id = 'btn' type="button" name="Follow" value="Follow"> 
-        </div>        
-        <i class = 'del' data-i='{{i}}'>×</i>
+        </div>
+           <i class = 'del' data-i='{{i}}'>X</i> 
+         
     </script>
-    <script src="follower.js"></script>
+    <script  src = '../js/jquery.js'></script>
+    <script src="follow.js"></script>
+    <script type="text/javascript">
+        var Follow = new Follow({
+            
+        });
+
+    </script>
 </body>
 </html>
 
