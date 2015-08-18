@@ -12,14 +12,14 @@ var EventEmitter = function(){
 };
 var Ev = function(){
     this.stopP = false;
-    this.stops = false ;
+    this.stopS = false ;
 };
 Ev.prototype = {
     stopPropagation : function (){
         this.stopP = true;
     },
-    stopsibling : function (){
-        this.stops = true ; 
+    stopSibling : function (){
+        this.stopS = true ; 
     }
 }
 
