@@ -60,7 +60,7 @@ EventEmitter.prototype.on = function(eventName,fn){
     if(!getName(eventName,this._events)) return this;
     var _eventName = getName(eventName,this._events);
     if(checkIn(eventName,this._events)){
-        // console.log(fn,eventName);
+        if (this._events[eventName].indexOf(fn)+1) return this;
         this._events[_eventName].push(fn);
     }else{
         this._events[_eventName] = [fn];
@@ -80,8 +80,8 @@ EventEmitter.prototype.off = function(eventName,fn){
         var reg = "^"+_eventName+'\\.'+'\\w+'+"$";
         var pattern = new RegExp(reg);
         while(true){
+            var i =0;
             for(var name in this._events){
-                var i =0;
                 if(pattern.test(name)){
                     i++;
                    delete this._events[name];
@@ -114,9 +114,18 @@ EventEmitter.prototype.emit = function(eventName){
 }
 EventEmitter.prototype.once = function(eventName,fn){
     function tmp(){
-        this.off(eventName,tmp);
+        this.off(eventName,_tmp);
         fn();
     }
-    this.on(eventName,tmp.bind(this));
-    return this;
+    var  _tmp = tmp.bind(this);  
+    return this.on(eventName,_tmp);
 }
+
+
+exports.EventEmitter = EventEmitter;
+exports.getName = getName;
+exports.checkIn = checkIn;
+
+
+
+
