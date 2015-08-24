@@ -44,14 +44,14 @@
         events.on('handler.one',fn2);
         // events.on('handler.one',fn3);
         // events.on('handler.one.two',fn3)
-        // events.on('handler.two',fn1)
+        events.on('handler.two',fn1)
         // events.once('handler.two',fn2);
         // events.once('handler.two',fn1);
         events.on('handler.two',fn3);
          // events.on('handler.two',fn1)
-        // events.off('handler.two');
+        events.off('handler.one', fn2);
         // events.on('handler.one.two',fn3)
-        events.emit('handler.two');
+        events.emit('handler.one');
     </script>
 </body>
 </html>

@@ -4,28 +4,28 @@ var ev = require("./eventEmitter_new.js");
 describe("EventEmitter",function(){
     var EventEmitter = ev.EventEmitter;
     var events = new EventEmitter();
-    function fn1(){
-        console.log(1);          
+    function fn1(e){
+        // console.log(1);          
     }
     function fn2(e){
-        console.log(2); 
+        // console.log(2); 
     }
     function fn3(e){
-        console.log(3); 
+        // console.log(3); 
     }
     function fn4(e){
-        console.log(4); 
+        // console.log(4); 
     }
     function ffn1(){
-        console.log("ff1");          
+        // console.log("ff1");          
     }
     function ffn2(e){
-        console.log("ff2"); 
+        // console.log("ff2"); 
         e.stopSibling();
         e.stopPropagation();
     }
     function ffn3(e){
-        console.log("ff3"); 
+        // console.log("ff3"); 
         e.stopPropagation();
     }
     events.on('handler',fn1)
@@ -44,14 +44,6 @@ describe("EventEmitter",function(){
                     var getName = ev.getName;
                     assert.equal('handler',getName('  handler '));
                 });
-                it("错误输入的时候 handler.->undefined(ok)",function(){
-                    var getName = ev.getName;
-                    assert.equal(undefined,getName('  handler. '));
-                });
-                it("错误输入的时候 qq.one->undefined(ok)",function(){
-                    var getName = ev.getName;
-                    assert.equal(undefined,getName('  qq.one '));
-                })
             });
             describe("#checkIn()",function(){
                 it("检查元素是否在数组里",function(){
@@ -91,12 +83,15 @@ describe("EventEmitter",function(){
             }
             function testOnce (eventName,fn){
                 var q = eventName;
-                events.emit(eventName,fn);
 
                 var result = ev.getInObj(eventName,events._events);
                 var fns = result.obj[result.name][""];
+                var nBefore = fns.length;
+                events.emit(eventName,fn);
+                assert.equal(nBefore-1,fns.length)
 
-                assert.ok(!ev.checkIn(fn,fns));
+
+
             }
 
             describe("验证绑定回调函数的on方法是否有效 同时验证了事件冒泡的现象",function(){
@@ -134,6 +129,7 @@ describe("EventEmitter",function(){
             })
             describe("验证只绑定一次的once方法是否有效",function(){
                 it(".once('qq',fn4)",function(){
+                    events.once('qq',fn4);
                     testOnce('qq',fn4)
                     
                 })
