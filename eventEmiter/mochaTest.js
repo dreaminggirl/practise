@@ -67,12 +67,38 @@ describe("EventEmitter",function(){
             })                        
         })
         describe("验证事件对象的原型方法：on off emit once",function(){
-            function testOn(eventName,fn){
+            function testOn (eventName,fn){
+
                 var q = eventName;
                 events.emit(eventName);
-                assert.ok(q in events._events)
-                assert.notEqual(-1,events._events[eventName].indexOf(fn))
+
+                var result = ev.getInObj(eventName,events._events);
+                var fns = result.obj[result.name][""];
+
+                assert.ok(ev.checkIn(fn,fns));
+
             }
+            function testOff (eventName,fn){
+
+                var q = eventName;
+                events.off(eventName,fn);
+
+                var result = ev.getInObj(eventName,events._events);
+                var fns = result.obj[result.name][""];
+
+                assert.ok(!ev.checkIn(fn,fns));
+
+            }
+            function testOnce (eventName,fn){
+                var q = eventName;
+                events.emit(eventName,fn);
+
+                var result = ev.getInObj(eventName,events._events);
+                var fns = result.obj[result.name][""];
+
+                assert.ok(!ev.checkIn(fn,fns));
+            }
+
             describe("验证绑定回调函数的on方法是否有效 同时验证了事件冒泡的现象",function(){
                 
                 it(".on('handler',fn1)",function(){
@@ -88,18 +114,17 @@ describe("EventEmitter",function(){
                     testOn('handler.one.oneone',fn1);
                 })
             })
+
             describe("验证解绑回调函数的off方法是否有效",function(){
 
                 it(".off('handler.one',fn2)",function(){
-                    events.off('handler.one',fn2);
-                    assert.equal(-1,events._events['handler.one'].indexOf(fn2))
+                    testOff('handler.one',fn2);
                 });
                 it(".on('handler.one',fn1)",function(){
                     testOn('handler.one',fn1);
                 });
                 it(".off('handler')",function(){
-                    events.off('handler');
-                    assert.equal(false,'handler' in events._events)
+                    testOff('handler.one',fn2);
                 })
             })
             describe("验证触发回调函数的emit方法是否有效",function(){
@@ -109,9 +134,8 @@ describe("EventEmitter",function(){
             })
             describe("验证只绑定一次的once方法是否有效",function(){
                 it(".once('qq',fn4)",function(){
-                    events.once('qq',fn4);
-                    events.emit('qq');
-                    assert.equal(0,events._events["qq"].length)
+                    testOnce('qq',fn4)
+                    
                 })
 
             })
