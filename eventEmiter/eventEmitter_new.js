@@ -51,10 +51,10 @@ var checkIn = function( eventName , obj ) {
         throw Error( '参数不全！getName(eventName,obj)' )
     }
 
-    if ( ( obj instanceof Array ) && ( obj.indexOf( eventName ) + 1 ) ) {
+    if ( Array.isArray( obj ) && ( obj.indexOf( eventName ) + 1 ) ) {
         return true
     } 
-    if ( !( obj instanceof Array ) && ( obj instanceof Object ) ) {
+    if ( !Array.isArray( obj ) && ( obj instanceof Object ) ) {
 
         var arr = eventName.split('.')
 
