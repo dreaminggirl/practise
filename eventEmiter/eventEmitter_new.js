@@ -34,7 +34,7 @@ var getName = function( eventName , obj ) {
 
     var eventName = eventName.trim()
 
-    if ( !/^[\w]+(\.?\w+)*$/.test( eventName ) ) {
+    if ( !/^\w+(\.?\w+)*$/.test( eventName ) ) {
         throw Error( '事件名格式有问题!' )
     }
 
@@ -82,7 +82,7 @@ var getInObj = function( eventName , _events ) {
         }
         var iterm = arr[i]
         !obj[ iterm ] && ( obj[ iterm ] = {} )
-    }
+    } 
 
     !obj[ last ][ "" ] && ( obj[ last ][ "" ] = [] )
 
@@ -161,15 +161,9 @@ EventEmitter.prototype.off = function( eventName , fn ) {
     if ( fn ){
         obj[ "" ].splice( obj[ "" ].indexOf( fn ) , 1 )
     } else {
-
-        for( var iterm in obj ){
-            delete obj[ iterm ]
-        }
-
         delete result.obj[ result.name ]
-
     }
-    checkIn(fn,obj[""]);
+    //checkIn(fn,obj[""]);
     return this
 }
 
