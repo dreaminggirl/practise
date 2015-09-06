@@ -2,9 +2,9 @@
  * 支持冒泡
  * 支持多级命名空间
  * 支持停止事件的回调函数
- * this.stopBrother = true;
+ * this.stopSibling();
  * 支持阻止事件冒泡
- * this.stopPropagation = true;
+ * this.stopPropagation();
  *
  */
 var EventEmitter = function() {
