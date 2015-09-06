@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style type="text/css" media="screen">
+            /*CSS源代码*/
+            body{
+                background:#CFCFCF;
+            }
+            html, body {
+              height: 100%;
+              background-color: white;
+              background-image: -webkit-gradient(radial, center center, 0, center center, 460, color-stop(10%, white), color-stop(50%, #665949), color-stop(100%, #362c22));
+              background-image: -webkit-radial-gradient(50% -100%, circle, white 10%, #665949, #362c22);
+              background-image: radial-gradient(  circle at 50% -100%, white 10%, #665949, #362c22);
+            }
+
+            .safari {
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              width: 216px;
+              height: 216px;
+              -webkit-transform: translate(-50%, -50%);
+              -moz-transform: translate(-50%, -50%);
+              -ms-transform: translate(-50%, -50%);
+              -o-transform: translate(-50%, -50%);
+              transform: translate(-50%, -50%);
+              background-color: #d7e1eb;
+              background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d7e1eb), color-stop(100%, #bbc3ce));
+              background-image: -webkit-linear-gradient(#d7e1eb, #bbc3ce);
+              background-image: linear-gradient(#d7e1eb, #bbc3ce);
+              border: 1px solid rgba(33, 24, 17, 0.4);
+              border-radius: 32px;
+              box-shadow: inset -1px 1px 0 1px rgba(255, 255, 255, 0.4), inset -1px 0 0 rgba(48, 169, 235, 0.4), 0 15px 45px rgba(0, 0, 0, 0.4);
+            }
+
+            .compass {
+              position: absolute;
+              top: 35px;
+              left: 35px;
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              width: 146px;
+              height: 146px;
+              -webkit-transform: translate3d(0, 0, 1);
+              -moz-transform: translate3d(0, 0, 1);
+              -ms-transform: translate3d(0, 0, 1);
+              -o-transform: translate3d(0, 0, 1);
+              transform: translate3d(0, 0, 1);
+              background-color: #30a9eb;
+              background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #30a9eb), color-stop(100%, #2ea9ed));
+              background-image: -webkit-linear-gradient(-315deg, #30a9eb, #2ea9ed);
+              background-image: linear-gradient(45deg,#30a9eb, #2ea9ed);
+              border-radius: 73px;
+              box-shadow: inset 0 1px 1px 1px #082A77;
+            }
+            .compass::before {
+              content: '\20';
+              position: absolute;
+              top: -2px;
+              left: -2px;
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              width: 150px;
+              height: 150px;
+              background-color: white;
+              background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, white), color-stop(100%, rgba(0, 0, 0, 0.25)));
+              background-image: -webkit-linear-gradient(-315deg, white, rgba(0, 0, 0, 0.25));
+              background-image: linear-gradient(45deg,white, rgba(0, 0, 0, 0.25));
+              border-radius: 74px;
+              z-index: -1;
+            }
+            .compass::after {
+              content: '\20';
+              position: absolute;
+              top: 8px;
+              left: 8px;
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              width: 130px;
+              height: 130px;
+              background-color: #33b4ee;
+              background-image: -webkit-gradient(radial, center center, 0, center center, 460, color-stop(50%, #33b4ee), color-stop(100%, #29a5ef));
+              background-image: -webkit-radial-gradient(#33b4ee 50%, #29a5ef);
+              background-image: radial-gradient(  #33b4ee 50%, #29a5ef);
+              border-radius: 65px;
+              box-shadow: inset 0 4px 4px #0f42ab, 0 1px 1px rgba(64, 197, 242, 0.9);
+            }
+
+            .needle {
+              position: absolute;
+              top: 73px;
+              left: 73px;
+              -webkit-transform: rotate(45deg);
+              -moz-transform: rotate(45deg);
+              -ms-transform: rotate(45deg);
+              -o-transform: rotate(45deg);
+              transform: rotate(45deg);
+              z-index: 20;
+            }
+            .needle::before {
+              content: '\20';
+              position: absolute;
+              top: 0px;
+              left: -6px;
+              width: 0px;
+              height: 0px;
+              border-style: solid;
+              border-width: 70px 6px 0 6px;
+              border-color: white transparent transparent transparent;
+              box-shadow: 12px 4px 10px rgba(8, 42, 119, 0.2);
+              -webkit-transform-origin: top center;
+              -moz-transform-origin: top center;
+              -ms-transform-origin: top center;
+              -o-transform-origin: top center;
+              transform-origin: top center;
+              -webkit-animation: turn 2s 1s cubic-bezier(0.6, -0.28, 0.735, 0.045) infinite alternate;
+              -moz-animation: turn 2s 1s cubic-bezier(0.6, -0.28, 0.735, 0.045) infinite alternate;
+              animation: turn 2s 1s cubic-bezier(0.6, -0.28, 0.735, 0.045) infinite alternate;
+            }
+            .needle::after {
+              content: '\20';
+              position: absolute;
+              top: -70px;
+              left: -6px;
+              width: 0px;
+              height: 0px;
+              border-style: solid;
+              border-width: 0 6px 70px 6px;
+              border-color: transparent transparent #f03a39 transparent;
+              box-shadow: 12px 4px 10px rgba(8, 42, 119, 0.2);
+              -webkit-transform-origin: bottom center;
+              -moz-transform-origin: bottom center;
+              -ms-transform-origin: bottom center;
+              -o-transform-origin: bottom center;
+              transform-origin: bottom center;
+              -webkit-animation: turn 2s 1s cubic-bezier(0.6, -0.28, 0.735, 0.045) infinite alternate;
+              -moz-animation: turn 2s 1s cubic-bezier(0.6, -0.28, 0.735, 0.045) infinite alternate;
+              animation: turn 2s 1s cubic-bezier(0.6, -0.28, 0.735, 0.045) infinite alternate;
+            }
+
+            .screw {
+              position: absolute;
+              top: -13px;
+              left: -13px;
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              width: 26px;
+              height: 26px;
+              background: #ebe7e8;
+              border-radius: 13px;
+              box-shadow: inset -1px 1px 1px white, inset 1px -1px 1px rgba(0, 0, 0, 0.25), -2px 2px 6px rgba(0, 0, 0, 0.25), 15px 5px 10px rgba(8, 42, 119, 0.25);
+              -webkit-transform: translate3d(0, 0, 2);
+              -moz-transform: translate3d(0, 0, 2);
+              -ms-transform: translate3d(0, 0, 2);
+              -o-transform: translate3d(0, 0, 2);
+              transform: translate3d(0, 0, 2);
+              z-index: 30;
+            }
+
+            .dial {
+              content: '\20';
+              position: absolute;
+              top: 50px;
+              left: 50px;
+              -webkit-box-sizing: border-box;
+              -moz-box-sizing: border-box;
+              box-sizing: border-box;
+              width: 46px;
+              height: 46px;
+              background-color: #29a5ef;
+              background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #29a5ef), color-stop(100%, #36c0ef));
+              background-image: -webkit-linear-gradient(-315deg, #29a5ef, #36c0ef);
+              background-image: linear-gradient(45deg,#29a5ef, #36c0ef);
+              border-radius: 23px;
+              box-shadow: inset 2px -2px 10px rgba(15, 66, 171, 0.25), inset -1px 1px 10px rgba(255, 255, 255, 0.1);
+              z-index: 10;
+            }
+
+            .clock {
+              position: absolute;
+              top: -36px;
+              left: 22px;
+              width: 2px;
+              height: 118px;
+            }
+            .clock::before, .clock::after {
+              content: '\20';
+              display: block;
+              width: 2px;
+              height: 12px;
+              background: white;
+              box-shadow: 0 0 2px 1px rgba(8, 42, 119, 0.25);
+            }
+            .clock::after {
+              margin-top: 94px;
+            }
+
+            .clock-half {
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              -webkit-transform: rotate(15deg);
+              -moz-transform: rotate(15deg);
+              -ms-transform: rotate(15deg);
+              -o-transform: rotate(15deg);
+              transform: rotate(15deg);
+            }
+            .clock-half::before, .clock-half::after {
+              content: '\20';
+              display: block;
+              width: 1px;
+              height: 6px;
+              background: white;
+              box-shadow: 0 0 2px 1px rgba(8, 42, 119, 0.25);
+            }
+            .clock-half::after {
+              margin-top: 106px;
+            }
+
+            .clock-1-7 {
+              -webkit-transform: rotate(30deg);
+              -moz-transform: rotate(30deg);
+              -ms-transform: rotate(30deg);
+              -o-transform: rotate(30deg);
+              transform: rotate(30deg);
+            }
+
+            .clock-2-8 {
+              -webkit-transform: rotate(60deg);
+              -moz-transform: rotate(60deg);
+              -ms-transform: rotate(60deg);
+              -o-transform: rotate(60deg);
+              transform: rotate(60deg);
+            }
+
+            .clock-3-9 {
+              -webkit-transform: rotate(90deg);
+              -moz-transform: rotate(90deg);
+              -ms-transform: rotate(90deg);
+              -o-transform: rotate(90deg);
+              transform: rotate(90deg);
+            }
+
+            .clock-4-10 {
+              -webkit-transform: rotate(120deg);
+              -moz-transform: rotate(120deg);
+              -ms-transform: rotate(120deg);
+              -o-transform: rotate(120deg);
+              transform: rotate(120deg);
+            }
+
+            .clock-5-11 {
+              -webkit-transform: rotate(150deg);
+              -moz-transform: rotate(150deg);
+              -ms-transform: rotate(150deg);
+              -o-transform: rotate(150deg);
+              transform: rotate(150deg);
+            }
+
+            @-webkit-keyframes turn {
+              0% {
+                -webkit-transform: rotate(0deg);
+              }
+
+              100% {
+                -webkit-transform: rotate(-90deg);
+              }
+            }
+            @-moz-keyframes turn {
+              0% {
+                -moz-transform: rotate(0deg);
+              }
+
+              100% {
+                -moz-transform: rotate(-90deg);
+              }
+            }
+            @-o-keyframes turn {
+              0% {
+                -o-transform: rotate(0deg);
+              }
+
+              100% {
+                -o-transform: rotate(-90deg);
+              }
+            }
+            @keyframes turn {
+              0% {
+                transform: rotate(0deg);
+              }
+
+              100% {
+                transform: rotate(-90deg);
+              }
+            }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div class="safari">
+
+              <div class="compass">
+
+                        <div class="needle">
+                                <div class="screw"></div>
+                        </div>
+
+                        <div class="dial">
+
+                                  <div class="clock clock-0-6">
+                                        <div class="clock-half"></div>
+                                  </div>
+
+                                  <div class="clock clock-1-7">
+                                        <div class="clock-half"></div>
+                                  </div>
+
+                                  <div class="clock clock-2-8">
+                                        <div class="clock-half"></div>
+                                  </div>
+
+                                  <div class="clock clock-3-9">
+                                        <div class="clock-half"></div>
+                                  </div>
+
+                                  <div class="clock clock-4-10">
+                                         <div class="clock-half"></div>
+                                  </div>
+
+                                  <div class="clock clock-5-11">
+                                         <div class="clock-half"></div>
+                                  </div>
+
+                        </div>
+              </div>
+
+        </div>
+
+    </div>
+</body>
+</html>
