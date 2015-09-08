@@ -37,6 +37,13 @@
         head.appendChild(script) 
     }
 
+    var createMoudleInfo = function( exports , _exports , id ,factory) {
+            _exports = isFunOrObj(factory) == 'Function' ? factory( require , exports ) : factory
+            if ( _exports ) {
+                exports = _exports
+            }
+            moudles[id].info = exports 
+    }
     var require = function( moudle ) {
         return moudles[moudle].info
     }
@@ -70,11 +77,7 @@
         var _deps = moudles[id].deps
 
         if ( !_deps.length ) {
-           _exports = isFunOrObj(factory) == 'Function' ? factory( require , exports ) : factory
-            if ( _exports ) {
-                exports = _exports
-            }
-            moudles[id].info = exports 
+           createMoudleInfo( exports ,_exports , id ,factory )
         }
 
         _deps.forEach( function( iterm , index , arr ) {
@@ -82,11 +85,7 @@
                 if ( !moudles[id].depsln ) {
                     
                     //factory : exports return obj
-                    _exports = isFunOrObj(factory) == 'Function' ? factory( require , exports ) : factory
-                    if ( _exports ) {
-                        exports = _exports
-                    }
-                    moudles[id].info = exports
+                    createMoudleInfo( exports ,_exports , id , factory )
 
                 }
             })
@@ -97,5 +96,4 @@
     global.MoudleLoad = {
         define : defineMoudle 
     }   
-
 })(this)
