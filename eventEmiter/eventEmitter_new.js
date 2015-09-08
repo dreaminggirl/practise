@@ -56,7 +56,7 @@ var checkIn = function( eventName , obj ) {
     } 
     if ( !Array.isArray( obj ) && ( obj instanceof Object ) ) {
 
-        var arr = eventName.split('.')
+        var arr = eventName.split( '.' )
 
         for( var i = 0 ; i < arr.length ; i ++ ){
             if ( !(arr[i] in obj) ) {
@@ -163,7 +163,6 @@ EventEmitter.prototype.off = function( eventName , fn ) {
     } else {
         delete result.obj[ result.name ]
     }
-    //checkIn(fn,obj[""]);
     return this
 }
 
