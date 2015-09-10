@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
     <link rel="stylesheet" href="">
-    <script src='MoudleLoad.js'></script>
+    <script src='ModuleLoad.js'></script>
 </head>
 <body>
     <script type="text/javascript">
-        MoudleLoad.define( 'js/test' , ['js/testmoudle'] , function(require , exports){
-            var testmoudle = require('js/testmoudle')
-            testmoudle.test();
+        ModuleLoad.define( 'js/test' , ['js/testmodule'] , function(require , exports){
+            var testmodule = require('js/testmodule')
+            testmodule.test();
         })
     </script>
 </body>
