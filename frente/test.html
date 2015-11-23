@@ -5,15 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>little of jq</title>
     <link rel="stylesheet" href="">
+    <style type="text/css" >
+            #t2{
+                border:1px solid red;
+            }
+            .t1{
+                border:1px solid blue;
+            }
+    </style>
 </head>
 <body>
-    <div  class="t1">
-        
-    </div>
-    <div id="t2">
-        
-    </div>
+    <div  class="t1"></div>
+    <div id="t2"></div>
     <p></p>
     <script type="text/javascript" src="frenet.js"></script>
+    <script type="text/javascript">
+    /**
+     * 1.dom操作
+     */
+    var div = $( '#t2' ).append( $( '<i>我是append进来的i标签</i>' ) ).after( $( '<b>我是after的b标签</b>' ) )
+    /**
+     * 2.$.each $().each
+     */
+     var arr =$( [1,2,3] ).each( function( index , val ){ $( '<b>' + val + '<b>' ).appendTo( $('.t1')) } )
+    </script>
 </body>
 </html>
