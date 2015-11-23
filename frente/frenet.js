@@ -2,6 +2,7 @@
     /**
      * 如果传递了cnt，
      * cnt 有可能是object类型，字符串（选择器，innerHTML ）,或空
+     *
      */
     global.$ = function( cnt ){
         if ( !cnt ) { cnt = '' }
